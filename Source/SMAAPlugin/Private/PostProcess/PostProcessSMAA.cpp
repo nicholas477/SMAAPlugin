@@ -14,7 +14,7 @@
 #include "DynamicResolutionState.h"
 #include "FXRenderingUtils.h"
 
-PRAGMA_DISABLE_OPTIMIZATION
+UE_DISABLE_OPTIMIZATION
 DECLARE_GPU_STAT(SMAAPass)
 DECLARE_GPU_STAT_NAMED(SMAADispatch, TEXT("SMAA Dispatch"));
 
@@ -908,4 +908,4 @@ FScreenPassTexture AddVisualizeSMAAPasses(FRDGBuilder& GraphBuilder, const FView
 
 	return Output;
 }
-PRAGMA_ENABLE_OPTIMIZATION
+UE_ENABLE_OPTIMIZATION

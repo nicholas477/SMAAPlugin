@@ -10,7 +10,7 @@
 
 #define LOCTEXT_NAMESPACE "FSMAAPluginModule"
 
-PRAGMA_DISABLE_OPTIMIZATION
+UE_DISABLE_OPTIMIZATION
 void FSMAAPluginModule::StartupModule()
 {
 	FString PluginShaderDir = FPaths::Combine(IPluginManager::Get().FindPlugin(TEXT("SMAAPlugin"))->GetBaseDir(), TEXT("Shaders"));
@@ -63,7 +63,7 @@ void FSMAAPluginModule::UpdateExtensions()
 		SMAASceneExtension = FSceneViewExtensions::NewExtension<FSMAASceneExtension>(AreaTextureResource, SearchTextureResource);
 	}
 }
-PRAGMA_ENABLE_OPTIMIZATION
+UE_ENABLE_OPTIMIZATION
 
 #undef LOCTEXT_NAMESPACE
 	

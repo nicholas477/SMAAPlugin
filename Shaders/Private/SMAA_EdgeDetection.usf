@@ -13,7 +13,7 @@ float PredicationStrength;
 #define SMAA_PREDICATION_STRENGTH PredicationStrength
 #endif
 
-#include "/SMAAPlugin/Private/SMAA_UE5.usf"
+#include "SMAA_UE5.usf"
 
 Texture2D InputDepth;
 Texture2D InputSceneColor;

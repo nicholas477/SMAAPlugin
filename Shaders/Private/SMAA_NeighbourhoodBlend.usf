@@ -1,4 +1,4 @@
-#include "/SMAAPlugin/Private/SMAA_UE5.usf"
+#include "SMAA_UE5.usf"
 
 Texture2D SceneColour;
 Texture2D InputBlend;

@@ -4,7 +4,7 @@ float ReprojectionWeight;
 float TemporalHistoryBias;
 #define SMAA_REPROJECTION_WEIGHT_BASE TemporalHistoryBias
 
-#include "/SMAAPlugin/Private/SMAA_UE5.usf"
+#include "SMAA_UE5.usf"
 
 Texture2D CurrentSceneColour;
 Texture2D PastSceneColour;

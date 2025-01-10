@@ -1,10 +1,54 @@
 #include "/Engine/Public/Platform.ush"
-//#include "/Engine/Private/Common.ush"
+#include "/Engine/Private/Common.ush"
+
 //#include "/Engine/Private/ScreenPass.ush"
 //#include "/Engine/Private/DeferredShadingCommon.ush"
 #include "/Engine/Private/TemporalSuperResolution/TSRCommon.ush"
+//------------------------------------------------------------------------
+
+// Shader Functions
+// Missing Function: Luma4
+// Ensure Luma4 is defined. Placeholder implementation below:
+float3 Luma4(float3 rgb)
+{
+	return dot(rgb, float3(0.2126, 0.7152, 0.0722)); // Standard luminance calculation
+}
+// FSMAAEdgeDetectionCS: Main edge detection shader
+void FSMAAEdgeDetectionCS(
+	Texture2D Texture,
+	SamplerState PointTextureSampler,
+	float2 UV,
+	out float3 Output
+)
+{
+	// Utilize Luma4 for edge detection
+	Output = Luma4(Texture2DSample(Texture, PointTextureSampler, UV).rgb);
+}
 
 
+// FSMAATemporalResolveCS: Temporal resolve shader
+// Missing Function: ComputeStaticVelocity
+// Ensure ComputeStaticVelocity is defined. Placeholder implementation below:
+float2 ComputeStaticVelocity(float2 AsScreen, float Depth)
+{
+	// Example implementation
+	// Placeholder velocity computation logic
+	return float2(AsScreen.x * Depth, AsScreen.y * Depth);
+}
+
+// Temporal Resolve Shader Implementation
+void FSMAATemporalResolveCS(
+	Texture2D Texture,
+	SamplerState PointTextureSampler,
+	float2 AsScreen,
+	float Depth,
+	out float2 Velocity
+)
+{
+	Velocity = ComputeStaticVelocity(AsScreen, Depth).xy;
+}
+
+//------------------------------------------------------------------------
 ///// ///// ////////// ///// /////
 // SMAA Macros from Leszek Godlewski
 //

@@ -73,7 +73,11 @@ public:
 	/**
 	* This will be called at the beginning of post processing to make sure that each view extension gets a chance to subscribe to an after pass event.
 	*/
-	virtual void SubscribeToPostProcessingPass(EPostProcessingPass Pass, FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled);
+	virtual void SubscribeToPostProcessingPass(EPostProcessingPass Pass,
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 5
+		const FSceneView& View,
+#endif
+		FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled) override;
 
 	TSharedPtr<FSMAAViewData> GetOrCreateViewData(const FSceneView& InView);
 

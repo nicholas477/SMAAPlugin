@@ -96,8 +96,8 @@ FScreenPassTexture FSMAASceneExtension::PostProcessPass_RenderThread(FRDGBuilder
 {
 	InOutInputs.Validate();
 
-	SMAAAreaTexture->InitRHI(GetImmediateCommandList_ForRenderCommand());
-	SMAASearchTexture->InitRHI(GetImmediateCommandList_ForRenderCommand());
+	//SMAAAreaTexture->InitRHI(GetImmediateCommandList_ForRenderCommand());
+	//SMAASearchTexture->InitRHI(GetImmediateCommandList_ForRenderCommand());
 
 	auto& SceneTextureParameters = InOutInputs.SceneTextures.SceneTextures;
 

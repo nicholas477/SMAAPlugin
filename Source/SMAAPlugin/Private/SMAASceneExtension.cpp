@@ -84,7 +84,11 @@ void FSMAASceneExtension::PreRenderView_RenderThread(FRDGBuilder& GraphBuilder, 
 	ApplyJitter(View, ViewState, InView.UnconstrainedViewRect, GetOrCreateViewData(InView).ToSharedRef());
 }
 
-void FSMAASceneExtension::SubscribeToPostProcessingPass(EPostProcessingPass Pass, FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
+void FSMAASceneExtension::SubscribeToPostProcessingPass(EPostProcessingPass Pass,
+#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 5
+	const FSceneView& View,
+#endif
+	FAfterPassCallbackDelegateArray& InOutPassCallbacks, bool bIsPassEnabled)
 {
 	if (Pass == EPostProcessingPass::FXAA)
 	{

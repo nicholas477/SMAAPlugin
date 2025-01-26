@@ -9,18 +9,3 @@ USMAADeveloperSettings::USMAADeveloperSettings(const FObjectInitializer& ObjectI
 	SMAAAreaTextureName = FSoftObjectPath("/SMAAPlugin/AreaTex.AreaTex");
 	SMAASearchTextureName = FSoftObjectPath("/SMAAPlugin/SearchTex.SearchTex");
 }
-
-void USMAADeveloperSettings::LoadTextures()
-{
-	if (SMAAAreaTexture == nullptr && !SMAAAreaTextureName.IsNull())
-	{
-		SMAAAreaTexture = SMAAAreaTextureName.LoadSynchronous();
-		SMAAAreaTexture->AddToRoot();
-	}
-
-	if (SMAASearchTexture == nullptr && !SMAASearchTextureName.IsNull())
-	{
-		SMAASearchTexture = SMAASearchTextureName.LoadSynchronous();
-		SMAASearchTexture->AddToRoot();
-	}
-}

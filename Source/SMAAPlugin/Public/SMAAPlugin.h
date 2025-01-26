@@ -16,7 +16,11 @@ public:
 	virtual void ShutdownModule() override;
 
 	void UpdateExtensions();
+	void LoadTextures();
 
 protected:
 	TSharedPtr<FSMAASceneExtension> SMAASceneExtension;
+
+	TStrongObjectPtr<class UTexture2D> SMAAAreaTexture;
+	TStrongObjectPtr<class UTexture2D> SMAASearchTexture;
 };

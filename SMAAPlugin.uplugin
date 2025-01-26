@@ -18,7 +18,8 @@
 		{
 			"Name": "SMAAPlugin",
 			"Type": "Runtime",
-			"LoadingPhase": "PostConfigInit"
+			"LoadingPhase": "PostConfigInit",
+			"TargetDenyList": [ "Server" ]
 		}
 	]
 }

@@ -15,9 +15,15 @@ void FSMAAPluginModule::StartupModule()
 	FString PluginShaderDir = FPaths::Combine(IPluginManager::Get().FindPlugin(TEXT("SMAAPlugin"))->GetBaseDir(), TEXT("Shaders"));
 	AddShaderSourceDirectoryMapping(TEXT("/SMAAPlugin"), PluginShaderDir);
 
+	// Don't create an extension/load textures if there's no rendering
+	if (!FApp::CanEverRender())
+	{
+		return;
+	}
+
 	FCoreDelegates::OnPostEngineInit.AddLambda([this]()
 	{
-		USMAADeveloperSettings::Get()->LoadTextures();
+		LoadTextures();
 
 		UpdateExtensions();
 	});
@@ -26,40 +32,53 @@ void FSMAAPluginModule::StartupModule()
 void FSMAAPluginModule::ShutdownModule()
 {
 	SMAASceneExtension.Reset();
+	SMAAAreaTexture.Reset();
+	SMAASearchTexture.Reset();
 }
 
 void FSMAAPluginModule::UpdateExtensions()
 {
 	if (!SMAASceneExtension.IsValid())
 	{
-		UTexture2D* AreaTexture = USMAADeveloperSettings::Get()->SMAAAreaTexture;
-		UTexture2D* SearchTexture = USMAADeveloperSettings::Get()->SMAASearchTexture;
 		FTexture2DResource* AreaTextureResource = nullptr;
 		FTexture2DResource* SearchTextureResource = nullptr;
 
-		if (ensure(AreaTexture))
+		if (ensure(SMAAAreaTexture))
 		{
-			//AreaTexture->UpdateResource();
-			const auto TextureResource = AreaTexture->CreateResource();
+			const auto TextureResource = SMAAAreaTexture->CreateResource();
 
-			if (ensure(TextureResource))
+			if (TextureResource)
 			{
 				AreaTextureResource = TextureResource->GetTexture2DResource();
 			}
 		}
 
-		if (ensure(SearchTexture))
+		if (ensure(SMAASearchTexture))
 		{
-			//SearchTexture->UpdateResource();
-			const auto TextureResource = SearchTexture->CreateResource();
+			const auto TextureResource = SMAASearchTexture->CreateResource();
 
-			if (ensure(TextureResource))
+			if (TextureResource)
 			{
 				SearchTextureResource = TextureResource->GetTexture2DResource();
 			}
 		}
 
 		SMAASceneExtension = FSceneViewExtensions::NewExtension<FSMAASceneExtension>(AreaTextureResource, SearchTextureResource);
+	}
+}
+
+void FSMAAPluginModule::LoadTextures()
+{
+	USMAADeveloperSettings* Settings = USMAADeveloperSettings::Get();
+
+	if (SMAAAreaTexture == nullptr && !Settings->SMAAAreaTextureName.IsNull())
+	{
+		SMAAAreaTexture.Reset(Settings->SMAAAreaTextureName.LoadSynchronous());
+	}
+
+	if (SMAASearchTexture == nullptr && !Settings->SMAASearchTextureName.IsNull())
+	{
+		SMAASearchTexture.Reset(Settings->SMAASearchTextureName.LoadSynchronous());
 	}
 }
 

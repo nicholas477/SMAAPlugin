@@ -93,7 +93,7 @@ float4 ViewportMetrics;
 // Shader Functions
 // Missing Function: Luma4
 // Ensure Luma4 is defined. Placeholder implementation below:
-float3 Luma4(float3 rgb)
+float Luma4(float3 rgb)
 {
 	return (rgb.g * 2.0) + (rgb.r + rgb.b);
 }

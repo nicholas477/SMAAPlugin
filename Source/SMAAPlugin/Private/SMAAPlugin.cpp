@@ -1,7 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "SMAAPlugin.h"
-
 #include "SMAASceneExtension.h"
 #include "SMAADeveloperSettings.h"
 #include "Interfaces/IPluginManager.h"
@@ -41,22 +40,12 @@ void FSMAAPluginModule::UpdateExtensions()
 		{
 			//AreaTexture->UpdateResource();
 			const auto TextureResource = AreaTexture->CreateResource();
-
-			if (ensure(TextureResource))
-			{
-				AreaTextureResource = TextureResource->GetTexture2DResource();
-			}
 		}
 
 		if (ensure(SearchTexture))
 		{
 			//SearchTexture->UpdateResource();
 			const auto TextureResource = SearchTexture->CreateResource();
-
-			if (ensure(TextureResource))
-			{
-				SearchTextureResource = TextureResource->GetTexture2DResource();
-			}
 		}
 
 		SMAASceneExtension = FSceneViewExtensions::NewExtension<FSMAASceneExtension>(AreaTextureResource, SearchTextureResource);

@@ -27,13 +27,14 @@ public class SMAAPlugin : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-                "Projects",
+                "Projects"
             }
 		);
 
 		PrivateIncludePaths.AddRange(
 			new string[] {
 				System.IO.Path.Combine(GetModuleDirectory("Renderer"), "Private"),
+				System.IO.Path.Combine(GetModuleDirectory("Renderer"), "Internal")
 			}
 		);
 	}
